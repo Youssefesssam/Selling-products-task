@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:selling_products_task/featuers/featuers.dart';
 import 'package:selling_products_task/ui/homeScreen/homeScreen.dart';
 import 'package:selling_products_task/utilities/appTheme.dart';
 
@@ -14,9 +15,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: HomeScreen.routeName,
+      initialRoute: Features.routeName,
      routes: {
-          HomeScreen.routeName:(context) => HomeScreen()
+          HomeScreen.routeName:(context) => HomeScreen(),
+          Features.routeName:(context) => Features(),
      },
       theme: AppTheme.lightTheme,
     );
