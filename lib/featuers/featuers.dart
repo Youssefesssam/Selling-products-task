@@ -1,56 +1,82 @@
-
 import 'package:flutter/material.dart';
-import 'package:selling_products_task/api/apiManager.dart';
-import 'package:selling_products_task/model/SourceRsesponceProduct.dart';
-import 'package:selling_products_task/utilities/appTheme.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:selling_products_task/featuers/productItem.dart';
+import 'package:selling_products_task/utilities/appAssets.dart';
 
-class Features extends StatelessWidget {
-  static const String routeName ="Features";
-  const Features({super.key});
+import '../api/apiManager.dart';
+import '../model/SourceRsesponceProduct.dart';
+import '../utilities/appTheme.dart';
+
+class Features extends StatefulWidget {
+  static const String routeName = "Features";
+
+  Features({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-      body: FutureBuilder<SourceResponseProduct?>(
-        future:ApiManager.getScources() ,
-        builder:(context,snapshot){
-          if (snapshot.connectionState==ConnectionState.waiting){
-            return const Center(
-              child: CircularProgressIndicator(backgroundColor: AppTheme.green,)
-            );
-          }else if(snapshot.hasError){
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(child: Text("Something went wrong")),
-                Center(child: ElevatedButton(onPressed: (){}, child: Text("TryAgain")))
-              ],
-            );
-          }else if (snapshot.hasData) {
-            var product = snapshot.data?.products;
-            if (product!= null && product.isNotEmpty) {
-              return ListView.builder(
-                itemCount: product.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
+  State<Features> createState() => _FeaturesState();
+}
 
-                    title: Text(product[index].title ?? "No Name"),
-                    subtitle: Text(product[index].description?? "No Description"),
+class _FeaturesState extends State<Features> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            child: FutureBuilder<SourceResponseProduct?>(
+              future: ApiManager.getSources(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: AppTheme.green,
+                    ),
                   );
-                },
-              );
-            } else {
-              return const Center(
-                child: Text("No data found"),
-              );
-            }
-          } else {
-            return const Center(
-              child: Text("No data found"),
-            );
-          }
-        }
-        ,)
+                } else if (snapshot.hasError) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Center(child: Text("Something went wrong")),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            ApiManager.getSources();
+                            setState(() {});
+                          },
+                          child: const Text("Try Again"),
+                        ),
+                      ),
+                    ],
+                  );
+                } else if (snapshot.hasData) {
+                  var productList = snapshot.data?.products;
+                  if (productList != null && productList.isNotEmpty) {
+                    return MasonryGridView.count(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 2,
+                      itemCount: productList.length,
+                      itemBuilder: (context, index) {
+                        var product = productList[index];
+                        int imageIndex = 0;
+                        return ProuductItem(product: product, index: imageIndex);
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: Text("No data found"),
+                    );
+                  }
+                } else {
+                  return const Center(
+                    child: Text("No data found"),
+                  );
+                }
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

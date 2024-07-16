@@ -5,7 +5,7 @@ import 'package:selling_products_task/api/apiConstants.dart';
 import 'package:selling_products_task/model/SourceRsesponceProduct.dart';
 
 class ApiManager {
-  static  Future<SourceResponseProduct?> getScources()async {
+  static  Future<SourceResponseProduct?> getSources()async {
     Uri url = Uri.https(ApiConstants.baseUrl,ApiConstants.sourcesApi);
 
     try{
