@@ -34,7 +34,7 @@ class Search extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     if (query.isNotEmpty) {
       return FutureBuilder<SourceResponseProduct?>(
-        future: ApiManager.searchArtical(query),
+        future: ApiManager.getSources(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -95,7 +95,7 @@ class Search extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     if (query.isNotEmpty) {
       return FutureBuilder<SourceResponseProduct?>(
-        future: ApiManager.searchArtical(query),
+        future: ApiManager.getSources(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
