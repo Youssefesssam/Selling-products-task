@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:selling_products_task/ui/homeScreen/homeScreen.dart';
+import 'package:selling_products_task/featuers/homeScreen.dart';
 import 'package:selling_products_task/utilities/appTheme.dart';
 
 void main() {

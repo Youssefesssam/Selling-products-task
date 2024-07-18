@@ -3,11 +3,11 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:selling_products_task/utilities/appAssets.dart';
 
-import '../../api/apiManager.dart';
-import '../../model/SourceRsesponceProduct.dart';
-import '../../products/productItem.dart';
-import '../../products/search.dart';
-import '../../utilities/appTheme.dart';
+import '../api/apiManager.dart';
+import '../model/SourceRsesponceProduct.dart';
+import '../products/productItem.dart';
+import '../products/search.dart';
+import '../utilities/appTheme.dart';
 class HomeScreen extends StatefulWidget {
   static const String routeName = "HomeScreen";
 
